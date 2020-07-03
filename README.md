@@ -37,10 +37,11 @@ wscat -c localhost:8000/api
 
 - type and send something in *picocom*:
 
+[![youtube link](https://img.youtube.com/vi/Q7wuADjRx10/0.jpg)](https://www.youtube.com/watch?v=Q7wuADjRx10)
+
 <div float="left">
     <img src="assets/picocom.png" />
 </div>
-[![youtube link](https://img.youtube.com/vi/Q7wuADjRx10/0.jpg)](https://www.youtube.com/watch?v=Q7wuADjRx10)
 
 
 - shut *socat* down:
