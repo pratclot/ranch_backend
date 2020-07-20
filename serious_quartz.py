@@ -92,13 +92,14 @@ async def waiter(timeout):
 @app.websocket('/watch')
 async def watch():
     @copy_current_websocket_context
-    async def ws_handler(val):
-        await websocket.send(val)
+    async def ws_handler(val: str):
+        for i in val.split('\r'):
+            await websocket.send(i)
 
     async def subscribe(obs, loop) -> Disposable:
         return obs.pipe(
             ops.buffer(obs.pipe(ops.debounce(1))),
-            ops.map(lambda i: b"".join(i).decode())
+            ops.map(lambda i: "".join(i))
         ).subscribe(
             on_next=lambda val: loop.create_task(ws_handler(val)),
             on_error=lambda val: print(f"on_error {val}"),
@@ -111,7 +112,7 @@ async def watch():
     loop = asyncio.get_event_loop()
 
     obs: Observable = app.output.port_data
-    await subscribe(obs, loop)
+    await subscribe(obs.pipe(ops.flat_map(lambda i: i.decode())), loop)
     while True:
         await waiter(1)
         if obs is not app.output.port_data:
