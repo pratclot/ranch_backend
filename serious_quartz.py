@@ -61,7 +61,7 @@ app = setup_app()
 
 async def send_str(cmd: str):
     app.transport.write(cmd.encode())
-    return str
+    return cmd
 
 
 @app.route('/temps')
