@@ -1,5 +1,13 @@
 Provides access to a com-port device via REST and WebSockets.
 
+To run as a service with pm2 use a helper script:
+
+```bash
+pm2 start pm2_wrapper.sh
+pm2 logs pm2_wrapper.sh
+pm2 save
+```
+
 To quickly test this on Linux:
 
 - create a virtual com-port attached over USB, *socat* will run as a background job:
